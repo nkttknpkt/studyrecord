@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  root to: 'studyrecords#index'
+  root to: 'learns#index'
+  
+  resources :learns,except: [:show]
   
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
