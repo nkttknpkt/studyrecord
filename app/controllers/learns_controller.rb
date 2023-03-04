@@ -2,15 +2,15 @@ class LearnsController < ApplicationController
    before_action :require_user_logged_in
    
   def index
-    @learns = Learn.all
+    @learns = current_user.learns.all
   end
   
   def new
-    @learn = Learn.new
+    @learn = current_user.learns.build
   end
   
   def create
-    @learn = Learn.new(learn_params)
+    @learn = current_user.learns.build(learn_params)
 
     if @learn.save
       flash[:success] = '勉強記録が正常に作成されました'
@@ -22,11 +22,11 @@ class LearnsController < ApplicationController
   end
 
   def edit
-    @learn = Learn.find(params[:id])
+    @learn = current_user.learns.find_by(id: params[:id])
   end
 
   def update
-    @learn = Learn.find(params[:id])
+    @learn = current_user.learns.find_by(id: params[:id])
     
     if @learn.update(learn_params)
       flash[:success] = '勉強記録は正常に更新されました'
@@ -38,7 +38,7 @@ class LearnsController < ApplicationController
   end
 
   def destroy
-    @learn = Learn.find(params[:id])
+    @learn = current_user.learns.find_by(id: params[:id])
     @learn.destroy
     
     flash[:success] = '勉強記録は正常に削除されました'
@@ -48,7 +48,7 @@ class LearnsController < ApplicationController
   private
 
   # Strong Parameter
-  def message_params
+  def learn_params
     params.require(:learn).permit(:date, :content, :note)
   end
 end

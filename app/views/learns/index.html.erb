@@ -1,12 +1,14 @@
 <h1>勉強記録一覧</h1>
 
 <% if @learns.any? %>
-  <table class="table table-striped">
+  <table class="table-sm">
     <thead>
       <tr>
         <th>日付</th>
         <th>勉強記録</th>
         <th>メモ</th>
+        <th class="text-end"></th>
+        <th class="text-end"></th>
       </tr>
     </thead>
     <tbody>
@@ -14,9 +16,9 @@
         <tr>
           <td><%= learn.date %></td>
           <td><%= learn.content %></td>
-          <td><%= message.note %></td>
-          <%= link_to 'この勉強記録を編集する', edit_learn_path(@learn), class: 'btn btn-light' %>
-          <%= link_to 'この勉強記録を削除する', @learn, method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger' %>
+          <td><%= learn.note %></td>
+          <td class="text-end"><%= link_to '編集', edit_learn_path(learn), class: 'btn btn-success' %></td>
+          <td class="text-end"><%= link_to '削除', learn, method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger' %></td>
         </tr>
       <% end %>
     </tbody>
